@@ -14,7 +14,7 @@ bool AudioInI2S::begin(long sampleRate, int bitsPerSample)
     return 0;
   }
 
-  //Initialisation
+  //Initialisation, time represent 83ms?
   int _delay = 263000;
   for (int i = 0; i< _delay; i++) {
       // Trigger a read to kick things off
@@ -39,6 +39,7 @@ bool AudioInI2S::readBuffer(void *buffer, int bufferSize) {
   while (counter < bufferSize) {
     sample = I2S.read();
     if (sample) {
+      // 32 bits ---> 24 bits ?
       *buff = sample >> 7; //Bit displacement
       buff++;
       counter++;
